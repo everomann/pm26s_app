@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pm26s_app/data/ponto_turistico_DAO.dart';
 import 'package:pm26s_app/screens/form_add_ponto_turistico.dart';
 import 'package:pm26s_app/widgets/ponto_turistico_card.dart';
+import 'package:pm26s_app/widgets/filtro.dart';
 
 class InitialScreen extends StatefulWidget {
   const InitialScreen({Key? key}) : super(key: key);
@@ -11,6 +12,9 @@ class InitialScreen extends StatefulWidget {
 }
 
 class _InitialScreenState extends State<InitialScreen> {
+  String _searchQuery = '';
+  PontoTuristico? _selectedPontoTuristico;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +24,14 @@ class _InitialScreenState extends State<InitialScreen> {
           IconButton(
             icon: const Icon(Icons.search),
             onPressed: () {
-              // showSearch(context: context, delegate: _PontoTuristicoDelegate((query) => setState(() => _searchQuery = query)))
+              showSearch(
+                context: context,
+                delegate: PontoTuristicoDelegate(
+                  (query) => setState(() => _searchQuery = query),
+                  (pontoTuristico) =>
+                      setState(() => _selectedPontoTuristico = pontoTuristico),
+                ),
+              );
             },
           ),
         ],
@@ -95,7 +106,7 @@ class _InitialScreenState extends State<InitialScreen> {
                 pontoTuristicoCardContext: context,
               ),
             ),
-          ).then((value) => setState((){}));
+          ).then((value) => setState(() {}));
         },
         child: const Icon(Icons.add),
       ),
