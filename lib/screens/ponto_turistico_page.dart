@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pm26s_app/data/ponto_turistico_DAO.dart';
+import 'package:pm26s_app/screens/form_add_ponto_turistico.dart';
 
 class PontoTuristicoPage extends StatefulWidget {
   const PontoTuristicoPage({Key? key, required this.pontoTuristicoPageContext})
@@ -20,6 +21,7 @@ class _PontoTuristicoPageState extends State<PontoTuristicoPage> {
     final descricao = arguments['descricao'];
     final diferenciais = arguments['diferenciais'];
     final imagem = arguments['imagem'];
+    final dataCadastro = arguments['dataCadastro'];
 
     return Scaffold(
       appBar: AppBar(
@@ -27,7 +29,7 @@ class _PontoTuristicoPageState extends State<PontoTuristicoPage> {
         actions: [
           IconButton(
             icon: const Icon(Icons.delete),
-            onPressed: () {
+            onPressed: () async {
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
@@ -46,9 +48,11 @@ class _PontoTuristicoPageState extends State<PontoTuristicoPage> {
                           PontoTuristicoDao().delete(nome);
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
+                              duration: Duration(seconds: 1),
                               content: Text('Ponto Turístico excluído'),
                             ),
                           );
+                          Navigator.pop(context);
                           Navigator.pop(context);
                         },
                         child: const Text(
@@ -135,12 +139,55 @@ class _PontoTuristicoPageState extends State<PontoTuristicoPage> {
                   ],
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    const Text(
+                      'Data Cadastro',
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: Text(
+                        dataCadastro,
+                        style: const TextStyle(
+                          fontSize: 16.0,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          // Navigator.push(
+          //   context,
+          //   MaterialPageRoute(
+          //     builder: (contextNew) => FormAddPontoTuristico(
+          //       pontoTuristicoCardContext: contextNew,
+          //     ),
+          //     settings: RouteSettings(
+          //       arguments: {
+          //         'nome': widget.nome,
+          //         'descricao': descricao,
+          //         'diferenciais': diferenciais,
+          //         'imagem': imagem,
+          //         'dataCadastro': dataCadastro,
+          //       },
+          //     ),
+          //   ),
+          // );
+        },
         child: const Icon(Icons.edit),
       ),
     );

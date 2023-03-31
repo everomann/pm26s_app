@@ -6,10 +6,10 @@ class PontoTuristico extends StatefulWidget {
   final String descricao;
   final String diferenciais;
   final String imagem;
-  //final String dataCadastro;
+  final String dataCadastro;
 
   const PontoTuristico(
-      this.nome, this.descricao, this.diferenciais, this.imagem,
+      this.nome, this.descricao, this.diferenciais, this.imagem, this.dataCadastro,
       {Key? key})
       : super(key: key);
 
@@ -34,6 +34,7 @@ class _PontoTuristicoState extends State<PontoTuristico> {
                 'descricao': widget.descricao,
                 'diferenciais': widget.diferenciais,
                 'imagem': widget.imagem,
+                'dataCadastro': widget.dataCadastro,
               },
             ),
           ),

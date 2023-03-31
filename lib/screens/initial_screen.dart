@@ -20,7 +20,7 @@ class _InitialScreenState extends State<InitialScreen> {
           IconButton(
             icon: const Icon(Icons.search),
             onPressed: () {
-              // Ação a ser executada quando o botão for clicado
+              // showSearch(context: context, delegate: _PontoTuristicoDelegate((query) => setState(() => _searchQuery = query)))
             },
           ),
         ],
@@ -41,8 +41,6 @@ class _InitialScreenState extends State<InitialScreen> {
                       ],
                     ),
                   );
-
-                  break;
                 case ConnectionState.waiting:
                   return Center(
                     child: Column(
@@ -52,7 +50,6 @@ class _InitialScreenState extends State<InitialScreen> {
                       ],
                     ),
                   );
-                  break;
                 case ConnectionState.active:
                   return Center(
                     child: Column(
@@ -62,7 +59,6 @@ class _InitialScreenState extends State<InitialScreen> {
                       ],
                     ),
                   );
-                  break;
                 case ConnectionState.done:
                   if (snapshot.hasData && items != null) {
                     if (items.isNotEmpty) {
@@ -87,9 +83,7 @@ class _InitialScreenState extends State<InitialScreen> {
                     );
                   }
                   return const Text('Erro ao carregar Pontos Turísticos.');
-                  break;
               }
-              return const Text('Erro!');
             }),
       ),
       floatingActionButton: FloatingActionButton(

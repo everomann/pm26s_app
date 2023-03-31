@@ -7,15 +7,15 @@ class PontoTuristicoDao {
       '$_nome TEXT, '
       '$_descricao TEXT, '
       '$_diferenciais TEXT, '
-      '$_imagem TEXT)';
-      //'$_dataCadastro TEXT)';
+      '$_imagem TEXT, '
+      '$_dataCadastro TEXT)';
 
   static const String _tablename = 'pontoTuristicoTable';
   static const String _nome = 'nome';
   static const String _descricao = 'descricao';
   static const String _diferenciais = 'diferenciais';
   static const String _imagem = 'imagem';
-  //static const String _dataCadastro = 'dataCadastro';
+  static const String _dataCadastro = 'dataCadastro';
 
   save(PontoTuristico pontoTuristico) async {
     print('Iniciando o save: ');
@@ -43,7 +43,7 @@ class PontoTuristicoDao {
     mapaDePontosTuristicos[_descricao] = pontoTuristico.descricao;
     mapaDePontosTuristicos[_diferenciais] = pontoTuristico.diferenciais;
     mapaDePontosTuristicos[_imagem] = pontoTuristico.imagem;
-    //mapaDePontosTuristicos[_dataCadastro] = pontoTuristico.dataCadastro;
+    mapaDePontosTuristicos[_dataCadastro] = pontoTuristico.dataCadastro;
     print('mapa de tarefas: $mapaDePontosTuristicos');
 
     return mapaDePontosTuristicos;
@@ -66,7 +66,7 @@ class PontoTuristicoDao {
 
     for (Map<String, dynamic> linha in mapaDePontosTuristicos) {
       final PontoTuristico pontoTuristico = PontoTuristico(linha[_nome],
-          linha[_descricao], linha[_diferenciais], linha[_imagem]);
+          linha[_descricao], linha[_diferenciais], linha[_imagem], linha[_dataCadastro]);
       pontosTuristicos.add(pontoTuristico);
     }
 

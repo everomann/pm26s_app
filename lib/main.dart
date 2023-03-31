@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pm26s_app/data/ponto_turistico_inherited.dart';
 import 'package:pm26s_app/screens/initial_screen.dart';
 
 void main() {

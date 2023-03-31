@@ -118,25 +118,30 @@ class _FormAddPontoTuristicoState extends State<FormAddPontoTuristico> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
+                  validator: (String? value) {
+                    if (valueValidator(value)) {
+                      return 'Campo obrigatório';
+                    }
+                    return null;
+                  },
                   controller: _dataCadastroController,
-                  decoration: const InputDecoration(
-                    labelText: 'Data inclusão:',
-                    enabled: false,
-                  ),
+                  decoration: const InputDecoration(labelText: 'Data Cadastro'),
+                  enabled: false,
                 ),
               ),
               ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     if (_formKey.currentState!.validate()) {
-                      PontoTuristicoDao().save(PontoTuristico(
+                      await PontoTuristicoDao().save(PontoTuristico(
                           _nomeController.text,
                           _descricaoController.text,
                           _diferenciaisController.text,
-                          _imagemController.text));
-                         // _dataCadastroController.text));
+                          _imagemController.text,
+                          _dataCadastroController.text));
 
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
+                          duration: Duration(seconds: 1),
                           content: Text('Ponto Turístico Salvo'),
                         ),
                       );
