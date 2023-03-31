@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:pm26s_app/data/ponto_turistico_DAO.dart';
+import 'package:pm26s_app/screens/form_add_ponto_turistico.dart';
+import 'package:pm26s_app/widgets/ponto_turistico_card.dart';
 
 class InitialScreen extends StatefulWidget {
   const InitialScreen({Key? key}) : super(key: key);
@@ -10,21 +13,97 @@ class InitialScreen extends StatefulWidget {
 class _InitialScreenState extends State<InitialScreen> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Pontos Turísticos'),
-        ),
-        body: const Center(
-          child: Text('Tela Inicial'),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Pontos Turísticos'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.search),
+            onPressed: () {
+              // Ação a ser executada quando o botão for clicado
+            },
+          ),
+        ],
+      ),
+      body: Padding(
+        padding: const EdgeInsets.only(top: 8, bottom: 70),
+        child: FutureBuilder<List<PontoTuristico>>(
+            future: PontoTuristicoDao().findAll(),
+            builder: (context, snapshot) {
+              List<PontoTuristico>? items = snapshot.data;
+              switch (snapshot.connectionState) {
+                case ConnectionState.none:
+                  return Center(
+                    child: Column(
+                      children: const [
+                        CircularProgressIndicator(),
+                        Text('Carregand...'),
+                      ],
+                    ),
+                  );
 
-          },
-          child: const Icon(Icons.add),
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+                  break;
+                case ConnectionState.waiting:
+                  return Center(
+                    child: Column(
+                      children: const [
+                        CircularProgressIndicator(),
+                        Text('Carregando...'),
+                      ],
+                    ),
+                  );
+                  break;
+                case ConnectionState.active:
+                  return Center(
+                    child: Column(
+                      children: const [
+                        CircularProgressIndicator(),
+                        Text('Carregando...'),
+                      ],
+                    ),
+                  );
+                  break;
+                case ConnectionState.done:
+                  if (snapshot.hasData && items != null) {
+                    if (items.isNotEmpty) {
+                      return ListView.builder(
+                          itemCount: items.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            final PontoTuristico pontoTuristico = items[index];
+                            return pontoTuristico;
+                          });
+                    }
+
+                    return Center(
+                      child: Column(
+                        children: const [
+                          Icon(Icons.error_outline, size: 128),
+                          Text(
+                            'Nenhum Ponto Turístico.',
+                            style: TextStyle(fontSize: 32),
+                          ),
+                        ],
+                      ),
+                    );
+                  }
+                  return const Text('Erro ao carregar Pontos Turísticos.');
+                  break;
+              }
+              return const Text('Erro!');
+            }),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (contextNew) => FormAddPontoTuristico(
+                pontoTuristicoCardContext: context,
+              ),
+            ),
+          ).then((value) => setState((){}));
+        },
+        child: const Icon(Icons.add),
       ),
     );
   }
