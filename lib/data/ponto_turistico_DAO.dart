@@ -8,12 +8,14 @@ class PontoTuristicoDao {
       '$_descricao TEXT, '
       '$_diferenciais TEXT, '
       '$_imagem TEXT)';
+      //'$_dataCadastro TEXT)';
 
   static const String _tablename = 'pontoTuristicoTable';
   static const String _nome = 'nome';
   static const String _descricao = 'descricao';
   static const String _diferenciais = 'diferenciais';
   static const String _imagem = 'imagem';
+  //static const String _dataCadastro = 'dataCadastro';
 
   save(PontoTuristico pontoTuristico) async {
     print('Iniciando o save: ');
@@ -41,6 +43,7 @@ class PontoTuristicoDao {
     mapaDePontosTuristicos[_descricao] = pontoTuristico.descricao;
     mapaDePontosTuristicos[_diferenciais] = pontoTuristico.diferenciais;
     mapaDePontosTuristicos[_imagem] = pontoTuristico.imagem;
+    //mapaDePontosTuristicos[_dataCadastro] = pontoTuristico.dataCadastro;
     print('mapa de tarefas: $mapaDePontosTuristicos');
 
     return mapaDePontosTuristicos;
@@ -93,4 +96,14 @@ class PontoTuristicoDao {
       whereArgs: [nomePontoTuristico],
     );
   }
+
+  Future<PontoTuristico?> get(String nomePontoTuristico) async {
+    final List<PontoTuristico> pontosTuristicos = await findByNome(nomePontoTuristico);
+    if (pontosTuristicos.isNotEmpty) {
+      return pontosTuristicos.first;
+    }
+    return null;
+  }
+
+
 }
