@@ -170,23 +170,23 @@ class _PontoTuristicoPageState extends State<PontoTuristicoPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(
-          //     builder: (contextNew) => FormAddPontoTuristico(
-          //       pontoTuristicoCardContext: contextNew,
-          //     ),
-          //     settings: RouteSettings(
-          //       arguments: {
-          //         'nome': widget.nome,
-          //         'descricao': descricao,
-          //         'diferenciais': diferenciais,
-          //         'imagem': imagem,
-          //         'dataCadastro': dataCadastro,
-          //       },
-          //     ),
-          //   ),
-          // );
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (contextNew) => FormAddPontoTuristico(
+                pontoTuristicoCardContext: contextNew,
+              ),
+              settings: RouteSettings(
+                arguments: {
+                  // 'nome': widget.nome,
+                  'descricao': descricao,
+                  'diferenciais': diferenciais,
+                  'imagem': imagem,
+                  'dataCadastro': dataCadastro,
+                },
+              ),
+            ),
+          );
         },
         child: const Icon(Icons.edit),
       ),
